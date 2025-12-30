@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Save to Excel</title>
-</head>
 <body>
-  <input type="text" id="name" placeholder="Name">
-  <input type="number" id="age" placeholder="Age">
-  <button onclick="sendData()">Send</button>
+  <input id="name" placeholder="Name">
+  <input id="age" type="number" placeholder="Age">
+  <button onclick="send()">Send</button>
 
   <script>
-    function sendData() {
-      const name = document.getElementById("name").value;
-      const age = document.getElementById("age").value;
-
-      fetch("http://localhost:3000/save", {
+    function send() {
+      fetch("https://telegram-bot-worker.vibolreatanak-phath.workers.dev", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ name, age })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: document.getElementById("name").value,
+          age: document.getElementById("age").value
+        })
       })
       .then(res => res.json())
-      .then(data => alert(data.message))
-      .catch(err => console.error(err));
+      .then(data => alert(data.message));
     }
   </script>
 </body>
