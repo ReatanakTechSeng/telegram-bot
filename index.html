@@ -6,30 +6,23 @@
 <body>
   <input type="text" id="name" placeholder="Name">
   <input type="number" id="age" placeholder="Age">
-  <button onclick="exportToExcel()">Export</button>
+  <button onclick="sendData()">Send</button>
 
   <script>
-    function exportToExcel() {
+    function sendData() {
       const name = document.getElementById("name").value;
       const age = document.getElementById("age").value;
 
-      // CSV format
-      const data = [
-        ["Name", "Age"],
-        [name, age]
-      ];
-
-      let csv = data.map(row => row.join(",")).join("\n");
-
-      const blob = new Blob([csv], { type: "text/csv" });
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "data.csv";
-      a.click();
-
-      window.URL.revokeObjectURL(url);
+      fetch("http://localhost:3000/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, age })
+      })
+      .then(res => res.json())
+      .then(data => alert(data.message))
+      .catch(err => console.error(err));
     }
   </script>
 </body>
