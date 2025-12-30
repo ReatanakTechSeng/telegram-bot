@@ -4,6 +4,7 @@
   <input id="name" placeholder="Name">
   <input id="age" type="number" placeholder="Age">
   <button onclick="send()">Send</button>
+  <button id="submitBtn">Submit</button>
 
   <script>
     function send() {
@@ -19,5 +20,22 @@
       .then(data => alert(data.message));
     }
   </script>
+
+  <script>
+    // Telegram WebApp object
+    const tg = window.Telegram.WebApp;
+
+    // Get user info
+    const user = tg.initDataUnsafe.user; // contains id, first_name, last_name, username, language_code
+    console.log('Telegram user info:', user);
+
+    // Example: send user info when they click submit
+    document.getElementById('submitBtn').addEventListener('click', () => {
+        alert(`Hello ${user.first_name}! Your username is ${user.username}`);
+        // You can send this info to your server with fetch/ajax
+        // fetch('/submit', { method: 'POST', body: JSON.stringify(user) });
+    });
+  </script>
+  
 </body>
 </html>
