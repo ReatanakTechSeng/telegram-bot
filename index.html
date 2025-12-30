@@ -4,6 +4,26 @@
   <title>Save to Excel</title>
 </head>
 <body>
-    <h1>Hello</h1>
+  <input type="text" id="name" placeholder="Name">
+  <input type="number" id="age" placeholder="Age">
+  <button onclick="sendData()">Send</button>
+
+  <script>
+    function sendData() {
+      const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+
+      fetch("http://localhost:3000/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, age })
+      })
+      .then(res => res.json())
+      .then(data => alert(data.message))
+      .catch(err => console.error(err));
+    }
+  </script>
 </body>
 </html>
