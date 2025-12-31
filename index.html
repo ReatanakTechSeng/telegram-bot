@@ -1,11 +1,547 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>My Portfolio</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='dinosaur.png') }}">
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- AOS CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body {
+        background: #f5f7fa;
+        color: #333;
+    }
+
+    /* HEADER */
+    header {
+        background: #111;
+        color: white;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        position: sticky;
+        top: 0px;
+        z-index: 100;
+    }
+
+    header h1 {
+        font-size: 24px;
+        color: #00bfff;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin-left: 20px;
+        font-weight: 500;
+    }
+
+    nav a:hover {
+        color: #00bfff;
+    }
+
+    /* HERO SECTION */
+    .hero {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: linear-gradient(to right, #00bfff, #1e90ff);
+        color: white;
+        padding: 20px;
+    }
+
+    .hero h2 {
+        font-size: 42px;
+    }
+
+    .hero p {
+        font-size: 18px;
+        margin: 15px 0;
+    }
+
+    .hero button {
+        padding: 12px 25px;
+        border: none;
+        background: #111;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .hero button:hover {
+        background: #333;
+    }
+
+    /* SECTIONS */
+    section {
+        padding: 60px 20px;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    section h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 32px;
+        color: #1e90ff;
+    }
+
+    /* ABOUT */
+    .about p {
+        text-align: center;
+        max-width: 700px;
+        margin: auto;
+        line-height: 1.6;
+        height: 200px;
+    }
+
+    /* SKILLS */
+    .skills {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .skill {
+        background: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* PROJECTS */
+    .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+
+    .project {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .project h3 {
+        color: #1e90ff;
+        margin-bottom: 10px;
+    }
+
+    /* CONTACT */
+    .contact p {
+        text-align: center;
+        font-size: 18px;
+    }
+
+    /* FOOTER */
+    footer {
+        background: #111;
+        color: #aaa;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    /* .hero-content > h2{
+        color: white;
+    } */
+
+    .profile-img {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid white;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    /* <<<< */
+    .skill-bar {
+        margin-bottom: 25px;
+    }
+
+    .skill-name {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .bar {
+        background: #ddd;
+        height: 18px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress {
+        height: 100%;
+        width: 0;
+        background: linear-gradient(to right, #00bfff, #1e90ff);
+        border-radius: 10px;
+        position: relative;
+        animation: load 2s ease forwards;
+    }
+
+    /* Percentage text */
+    .percent {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 12px;
+        font-weight: bold;
+        color: white;
+    }
+
+    /* Skill levels */
+    .progress.html { width: 90%; }
+    .progress.css { width: 85%; }
+    .progress.js { width: 75%; }
+    .progress.react { width: 70%; }
+
+    @keyframes load {
+        from { width: 0; }
+    }
+
+    /* Dark mode toggle button */
+    .dark-toggle {
+        background: none;
+        border: 2px solid #00bfff;
+        color: #00bfff;
+        padding: 6px 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-left: 20px;
+    }
+
+    /* Smooth transition */
+    body, header, section, footer, .card, .project, .skill, .bar {
+        transition: background 0.3s, color 0.3s;
+    }
+
+    /* 🌙 DARK MODE */
+    body.dark {
+        background: #121212;
+        color: #e0e0e0;
+    }
+
+    body.dark header {
+        background: #1c1c1c;
+    }
+
+    body.dark nav a {
+        color: #e0e0e0;
+    }
+
+    body.dark section {
+        background: #121212;
+    }
+
+    body.dark footer {
+        background: #1c1c1c;
+    }
+
+    body.dark .card,
+    body.dark .project,
+    body.dark .skill {
+        background: #1e1e1e;
+    }
+
+    body.dark .bar {
+        background: #333;
+    }
+    
+    /* cv_download */
+    .cv-btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 12px 25px;
+        background: #00bfff;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .cv-btn:hover {
+        background: #1e90ff;
+        transform: translateY(-2px);
+    }
+
+    /* Dark mode support */
+    body.dark .cv-btn {
+        background: #1e90ff;
+    }
+
+    /* .hero-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+} */
+
+    /* Floating Social Icons */
+    .social-icons {
+        position: fixed;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        z-index: 1000;
+    }
+
+    .social-icons .icon {
+        display: block;
+        width: 45px;
+        height: 45px;
+        background: #1e90ff;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 45px;
+        border-radius: 50%;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    /* .social-icons .icon:hover {
+        background: #00bfff;
+        transform: scale(1.2);
+    } */
+    .social-icons .icon i {
+        line-height: 45px;
+        font-size: 20px;
+    }
+
+    /* Dark mode support */
+    body.dark .social-icons .icon {
+        background: #00bfff;
+    }
+  </style>
+</head>
 <body>
+  <!-- HEADER -->
+  <header>
+      <h1>MyPortfolio</h1>
+      <nav>
+          <a href="">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+          <button id="darkToggle" class="dark-toggle">🌙</button>
+      </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="" data-aos="fade-up">
+      <div class="hero-content">
+          <img src="static\profile.jpg" alt="Profile Photo" class="profile-img">
+          <h2>Hello, I'm Zane</h2>
+          <p>IT Developer | Programmer | Web Developer | Designer | IT Officer </p>
+
+          <div>
+              <button>View My Work</button>
+              <a href="assets/cv.pdf" download class="cv-btn">Download CV</a>
+          </div>
+      </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about" data-aos="fade-right">
+      <div class="container">
+          <h2>About Me</h2>
+          <p>
+              I am a passionate web developer with experience in building
+              responsive and modern websites using HTML, CSS, and JavaScript.
+              --
+              I'm a Systems Consultant and a Programmer of infor Sunsystems. Working in highly recommended ERP provider Company. Supported, trained Report to clients and give them any solution or advice. Joined training business flow and business solutions courses. Now I am seeking full time job with dynamic environment and challenges to develop myself.
+          </p>
+      </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" data-aos="fade-left">
+      <div class="container">
+          <h2>Skills</h2>
+
+          <div class="skill-bar">
+              <span class="skill-name">HTML</span>
+              <div class="bar">
+                  <div class="progress html">
+                      <span class="percent">90%</span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="skill-bar" >
+              <span class="skill-name">CSS</span>
+              <div class="bar">
+                  <div class="progress css">
+                      <span class="percent">85%</span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="skill-bar">
+              <span class="skill-name">JavaScript</span>
+              <div class="bar">
+                  <div class="progress js">
+                      <span class="percent">75%</span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="skill-bar">
+              <span class="skill-name">React</span>
+              <div class="bar">
+                  <div class="progress react">
+                      <span class="percent">70%</span>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" data-aos="fade-up">
+      <div class="container">
+          <h2>Projects</h2>
+          <div class="projects">
+              <div class="project">
+                  <h3>Portfolio Website</h3>
+                  <p>A personal portfolio built with HTML and CSS.</p>
+              </div>
+              <div class="project">
+                  <h3>Landing Page</h3>
+                  <p>A responsive landing page design.</p>
+              </div>
+              <div class="project">
+                  <h3>Web App</h3>
+                  <p>A simple JavaScript-based web application.</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact" data-aos="zoom-in">
+      <div class="container">
+          <h2>Contact Me</h2>
+          <p>Email: rathanak.phath@gmail.com</p>
+          <p>Phone: +855 070 939 788</p>
+      </div>
+  </section>
+
+  <div class="social-icons">
+      <a href="https://github.com/yourusername" target="_blank" class="icon"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/yourusername" target="_blank" class="icon"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://twitter.com/yourusername" target="_blank" class="icon"><i class="fab fa-twitter"></i></a>
+      <a href="https://flask-project-qbi1.onrender.com/mycv" target="_blank" class="icon">CV</i></a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+      <p>© 2025 MyPortfolio. All rights reserved.</p>
+  </footer>
+
+  <!-- Javascript -->
+  <script>
+      const toggleBtn = document.getElementById("darkToggle");
+      const body = document.body;
+
+      // Load saved mode
+      if (localStorage.getItem("darkMode") === "enabled") {
+          body.classList.add("dark");
+          toggleBtn.textContent = "☀️";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+          body.classList.toggle("dark");
+
+          if (body.classList.contains("dark")) {
+              toggleBtn.textContent = "☀️";
+                  localStorage.setItem("darkMode", "enabled");
+          } else {
+              toggleBtn.textContent = "🌙";
+              localStorage.setItem("darkMode", "disabled");
+          }
+      });
+  </script> 
+
+  <!-- AOS JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+      AOS.init({
+          duration: 1000, // animation duration in ms
+          once: true      // animate only once
+      });
+  </script>
+
+
   <input id="name" placeholder="Name">
   <input id="age" type="number" placeholder="Age">
   <button onclick="send()">Send</button>
   <button id="submitBtn">Submit</button>
 
+  <script>
+    const tg = window.Telegram.WebApp;
+    const user = tg.initDataUnsafe.user;
+
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      const formData = {
+        userId: user.id,
+        username: user.username,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        email: document.getElementById('email')?.value || ''
+      };
+
+      fetch('https://yourserver.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      .then(res => res.json())
+      .then(data => alert('Submission sent!'))
+      .catch(err => console.error(err));
+    });
+  </script>
+  
   <script>
     function send() {
       fetch("https://telegram-bot-worker.vibolreatanak-phath.workers.dev", {
@@ -21,21 +557,5 @@
     }
   </script>
 
-  <script>
-    // Telegram WebApp object
-    const tg = window.Telegram.WebApp;
-
-    // Get user info
-    const user = tg.initDataUnsafe.user; // contains id, first_name, last_name, username, language_code
-    console.log('Telegram user info:', user);
-
-    // Example: send user info when they click submit
-    document.getElementById('submitBtn').addEventListener('click', () => {
-        alert(`Hello ${user.first_name}! Your username is ${user.username}`);
-        // You can send this info to your server with fetch/ajax
-        // fetch('/submit', { method: 'POST', body: JSON.stringify(user) });
-    });
-  </script>
-  
 </body>
 </html>
