@@ -1,143 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telegram Mobile Form</title>
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #0088cc, #4facfe);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0;
-        padding: 10px;
-    }
-
-    .card {
-        background: #fff;
-        width: 100%;
-        max-width: 360px;
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
-
-    h2 {
-        text-align: center;
-        margin-bottom: 15px;
-    }
-
-    input, button {
-        width: 100%;
-        padding: 12px;
-        margin-top: 10px;
-        font-size: 16px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-    }
-
-    button {
-        background: #0088cc;
-        color: white;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    button:hover {
-        background: #006fa6;
-    }
-
-    .tg-login {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 10px;
-    }
-
-    .status {
-        text-align: center;
-        font-size: 14px;
-        margin-top: 8px;
-        color: green;
-    }
-</style>
+<title>Telegram WebApp</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 
 <body>
 
-<div class="card">
-    <h2>Telegram Submit</h2>
-
-    <!-- Telegram Login -->
-    <div class="tg-login">
-        <script async src="https://telegram.org/js/telegram-widget.js?22"
-            data-telegram-login="YOUR_BOT_USERNAME"
-            data-size="large"
-            data-userpic="false"
-            data-request-access="write"
-            data-onauth="onTelegramAuth(user)">
-        </script>
-    </div>
-
-    <div class="status" id="tgStatus">Not connected</div>
-
-    <form id="tgForm">
-        <input type="text" id="name" placeholder="Your Name" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <button type="submit">Submit</button>
-    </form>
-</div>
+<h3>Telegram Auto User</h3>
+<p id="info"></p>
 
 <script>
-const BOT_TOKEN = "8532527135:AAGviPH9CWzMfnfFQC1_DKx4PH1DLlQGhNQ";
-const CHAT_ID = "-5020702859";
+const tg = window.Telegram.WebApp;
 
-let tgUser = {};
+// REQUIRED
+tg.ready();
 
-function onTelegramAuth(user) {
-    tgUser = user;
-    document.getElementById("tgStatus").textContent =
-        `Connected: ${user.first_name} (ID: ${user.id})`;
-}
+// AUTO USER DATA
+const user = tg.initDataUnsafe.user;
 
-document.getElementById("tgForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    if (!tgUser.id) {
-        alert("Please login with Telegram first");
-        return;
-    }
-
-    const message = `
-📲 New Mobile Submission
-
-👤 Telegram Info
-🆔 ID: ${tgUser.id}
-📛 Name: ${tgUser.first_name}
-👤 Username: @${tgUser.username || "N/A"}
-
-📝 Form Data
-Name: ${document.getElementById("name").value}
-Email: ${document.getElementById("email").value}
+if (user) {
+    document.getElementById("info").innerHTML = `
+        🆔 ID: ${user.id}<br>
+        👤 Name: ${user.first_name}<br>
+        👤 Username: @${user.username || "N/A"}
     `;
-
-    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            chat_id: CHAT_ID,
-            text: message
-        })
-    })
-    .then(() => {
-        alert("Sent to Telegram!");
-        document.getElementById("tgForm").reset();
-    });
-});
+} else {
+    document.getElementById("info").innerText =
+        "Open this page from Telegram";
+}
 </script>
 
 </body>
