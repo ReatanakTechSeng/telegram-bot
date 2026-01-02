@@ -7,29 +7,59 @@
 </head>
 
 <body>
-
-<h3>Telegram Auto User</h3>
-<p id="info"></p>
+    <h3>Telegram Auto User</h3>
+    <p id="info"></p>
+    <button id="submitBtn">Submit</button>
 
 <script>
-const tg = window.Telegram.WebApp;
+    const tg = window.Telegram.WebApp;
+    // REQUIRED
+    tg.ready();
+    // AUTO USER DATA
+    const user = tg.initDataUnsafe.user;
+    if (user) {
+        document.getElementById("info").innerHTML = `
+            🆔 ID: ${user.id}<br>
+            👤 Name: ${user.first_name}<br>
+            👤 Username: @${user.username || "N/A"}
+        `;
+    } else {
+        document.getElementById("info").innerText =
+            "Open this page from Telegram";
+    }
 
-// REQUIRED
-tg.ready();
+    //
+    const BOT_TOKEN = "8532527135:AAGviPH9CWzMfnfFQC1_DKx4PH1DLlQGhNQ";
+    const CHAT_ID = "-5020702859";
+    document.getElementById("submitBtn").addEventListener("click", () => {
 
-// AUTO USER DATA
-const user = tg.initDataUnsafe.user;
+        if (!user) {
+            alert("Open this page inside Telegram");
+            return;
+        }
 
-if (user) {
-    document.getElementById("info").innerHTML = `
-        🆔 ID: ${user.id}<br>
-        👤 Name: ${user.first_name}<br>
-        👤 Username: @${user.username || "N/A"}
-    `;
-} else {
-    document.getElementById("info").innerText =
-        "Open this page from Telegram";
-}
+        const message = `
+    📩 Auto Submission
+
+    👤 Telegram User
+    🆔 ID: ${user.id}
+    📛 Name: ${user.first_name}
+    👤 Username: @${user.username || "N/A"}
+        `;
+
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: message
+            })
+        })
+        .then(() => {
+            tg.showAlert("Sent successfully!");
+            tg.close(); // optional: close WebApp
+        });
+    });
 </script>
 
 </body>
