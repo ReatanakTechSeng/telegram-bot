@@ -23,8 +23,13 @@
 
     <h3>Telegram Auto User</h3>
     <p id="info"></p>
-    <input type="text" id="message" placeholder="Enter message">
     <button id="submitBtn">Submit</button>
+
+    <input type="text" id="name" placeholder="Enter your name">
+    <input type="text" id="message" placeholder="Enter message">
+
+    <button onclick="submitData()">Submit</button>
+
 
 <script>
     const tg = window.Telegram.WebApp;
@@ -48,12 +53,8 @@
     const CHAT_ID = "-5020702859";
 
     document.getElementById("submitBtn").addEventListener("click", () => {
-        // const data = {
-        //     message_: document.getElementById("message").value,
-        // };
 
         if (!user) {
-            alert("")
             alert("Open this page inside Telegram");
             return;
         }
@@ -65,7 +66,6 @@
     🆔 ID: ${user.id}
     📛 Name: ${user.first_name}
     👤 Username: @${user.username || "N/A"}
-    => Message: ${data.message || "N/A"}
         `;
 
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -81,6 +81,25 @@
             tg.close(); // optional: close WebApp
         });
     });
+</script>
+
+<script>
+  const tg_ = window.Telegram.WebApp;
+  tg_.expand();
+
+  function submitData() {
+    const data = {
+      name: document.getElementById("name").value,
+      message: document.getElementById("message").value,
+      user_id: tg_.initDataUnsafe.user?.id,
+      username: tg_.initDataUnsafe.user?.username
+    };
+
+    tg_.showAlert("Sent successfully!");
+
+    // Send data back to Telegram Bot
+    // tg_.sendData(JSON.stringify(data));
+  }
 </script>
 
 </body>
