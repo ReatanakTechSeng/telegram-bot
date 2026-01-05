@@ -24,6 +24,13 @@
     <h3>Telegram Auto User</h3>
     <p id="info"></p>
 
+    <select id="department">
+      <option value="">-- Select Department --</option>
+      <option value="Sales">Sales</option>
+      <option value="AR">AR</option>
+      <option value="AP">AP</option>
+    </select>
+
     <input type="text" id="name" placeholder="Enter your name">
     <input type="text" id="message" placeholder="Enter message">
 
@@ -56,7 +63,12 @@
 
     document.getElementById("submitBtn").addEventListener("click", () => {
 
+        // const department_select = document.getElementById("department");
+        // const department_text = select.options[select.selectedIndex].text;
+
       const data = {
+        department_select: document.getElementById("department"),
+        department_text: select.options[select.selectedIndex].text,
         name: document.getElementById("name").value,
         mess: document.getElementById("message").value,
       }
@@ -75,6 +87,7 @@
     📛 Name: ${user.first_name}
     👤 Username: @${user.username || "N/A"}
 
+    => Department: ${data.department_text}
     => Name: ${data.name}
     => Message: ${data.mess}
         `;
