@@ -46,21 +46,26 @@
     //
     const BOT_TOKEN = "8532527135:AAGviPH9CWzMfnfFQC1_DKx4PH1DLlQGhNQ";
     const CHAT_ID = "-5020702859";
+
     document.getElementById("submitBtn").addEventListener("click", () => {
+        // const data = {
+        //     message_: document.getElementById("message").value,
+        // };
 
         if (!user) {
+            alert("")
             alert("Open this page inside Telegram");
             return;
         }
 
-        const message = `
+        const message_ = `
     📩 Auto Submission
 
     👤 Telegram User
     🆔 ID: ${user.id}
     📛 Name: ${user.first_name}
     👤 Username: @${user.username || "N/A"}
-    👤 Username: ${message}
+    => Message: ${data.message || "N/A"}
         `;
 
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -68,7 +73,7 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 chat_id: CHAT_ID,
-                text: message
+                text: message_
             })
         })
         .then(() => {
