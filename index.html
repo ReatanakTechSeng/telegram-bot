@@ -55,15 +55,17 @@
     const CHAT_ID = "-5020702859";
 
     document.getElementById("submitBtn").addEventListener("click", () => {
-      const name = document.getElementById("name").value;
-      const mess = document.getElementById("message").value;
+
+      const data = {
+        name: document.getElementById("name").value,
+        mess: document.getElementById("message").value,
+      }
+
 
         if (!user) {
             alert("Open this page inside Telegram");
             return;
         }
-
-      alert(mess)
       
         const message_ = `
     📩 Auto Submission
@@ -72,8 +74,9 @@
     🆔 ID: ${user.id}
     📛 Name: ${user.first_name}
     👤 Username: @${user.username || "N/A"}
-    => Name: ${name}
-    => Message: ${mess}
+
+    => Name: ${data.name}
+    => Message: ${data.mess}
         `;
 
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
