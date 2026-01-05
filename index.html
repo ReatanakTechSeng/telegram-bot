@@ -24,7 +24,7 @@
     <h3>Telegram Auto User</h3>
     <p id="info"></p>
 
-    <!-- <input type="text" id="name" placeholder="Enter your name"> -->
+    <input type="text" id="name" placeholder="Enter your name">
     <input type="text" id="message" placeholder="Enter message">
 
     <button id="submitBtn">Submit</button>
@@ -55,6 +55,7 @@
     const CHAT_ID = "-5020702859";
 
     document.getElementById("submitBtn").addEventListener("click", () => {
+      const name = document.getElementById("name").value;
       const mess = document.getElementById("message").value;
 
         if (!user) {
@@ -63,6 +64,7 @@
         }
 
       alert(mess)
+      
         const message_ = `
     📩 Auto Submission
 
@@ -70,6 +72,7 @@
     🆔 ID: ${user.id}
     📛 Name: ${user.first_name}
     👤 Username: @${user.username || "N/A"}
+    => Name: ${name}
     => Message: ${mess}
         `;
 
