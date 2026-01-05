@@ -23,12 +23,13 @@
 
     <h3>Telegram Auto User</h3>
     <p id="info"></p>
-    <button id="submitBtn">Submit</button>
 
-    <input type="text" id="name" placeholder="Enter your name">
+    <!-- <input type="text" id="name" placeholder="Enter your name"> -->
     <input type="text" id="message" placeholder="Enter message">
 
-    <button onclick="submitData()">Submit</button>
+    <button id="submitBtn">Submit</button>
+
+    <!-- <button onclick="submitData()">Submit</button> -->
 
 
 <script>
@@ -37,6 +38,7 @@
     tg.ready();
     // AUTO USER DATA
     const user = tg.initDataUnsafe.user;
+
     if (user) {
         document.getElementById("info").innerHTML = `
             🆔 ID: ${user.id}<br>
@@ -53,6 +55,7 @@
     const CHAT_ID = "-5020702859";
 
     document.getElementById("submitBtn").addEventListener("click", () => {
+      const mess = document.getElementById("message").value;
 
         if (!user) {
             alert("Open this page inside Telegram");
@@ -66,6 +69,7 @@
     🆔 ID: ${user.id}
     📛 Name: ${user.first_name}
     👤 Username: @${user.username || "N/A"}
+    => Message: ${value}
         `;
 
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -83,24 +87,30 @@
     });
 </script>
 
-<script>
-  const tg_ = window.Telegram.WebApp;
-  tg_.expand();
+<!-- <script>
+function submitData() {
+  const value = document.getElementById("name").value;
 
-  function submitData() {
-    const data = {
-      name: document.getElementById("name").value,
-      message: document.getElementById("message").value,
-      user_id: tg_.initDataUnsafe.user?.id,
-      username: tg_.initDataUnsafe.user?.username
-    };
+    // const data = {
+    //   name: document.getElementById("name").value,
+    //   message: document.getElementById("message").value,
+    //   user_id: tg_.initDataUnsafe.user?.id,
+    //   username: tg_.initDataUnsafe.user?.username
+    // };
 
-    tg_.showAlert(data.message);
-
-    // Send data back to Telegram Bot
-    // tg_.sendData(JSON.stringify(data));
+    tg_.showAlert(value);
   }
-</script>
+</script> -->
+
+<!-- <input type="text" id="name" placeholder="Enter your name">
+<button onclick="showAlert()">Submit</button>
+
+<script>
+function showAlert() {
+  const value = document.getElementById("name").value;
+  alert(value);
+}
+</script> -->
 
 </body>
 
