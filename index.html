@@ -63,8 +63,9 @@
 
     document.getElementById("submitBtn").addEventListener("click", () => {
 
-        // const department_select = document.getElementById("department");
-        // const department_text = department_select.options[select.selectedIndex].text;
+      const select = document.getElementById("department");
+      const text = select.options[select.selectedIndex].text;
+      alert(text);
 
       const data = {
         department_select: document.getElementById("department"),
