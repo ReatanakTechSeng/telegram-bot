@@ -1,14 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telegram WebApp</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram WebApp</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #0f172a; color: #e5e7eb; line-height: 1.6; }
+        a { color: inherit; text-decoration: none; }
+
+
+        header {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2rem;
+        }
+
+
+        header h1 { font-size: 3rem; font-weight: 600; }
+        header span { color: #38bdf8; }
+        header p { margin: 1rem 0 2rem; max-width: 600px; }
+
+
+        .btn {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        border-radius: 999px;
+        background: #38bdf8;
+        color: #020617;
+        font-weight: 500;
+        transition: 0.3s ease;
+        }
+
+
+        .btn:hover { background: #0ea5e9; }
+
+
+        section { padding: 4rem 10%; }
+
+
+        h2 { font-size: 2rem; margin-bottom: 2rem; text-align: center; }
+
+
+        .about, .skills, .projects, .contact {
+        max-width: 1100px;
+        margin: auto;
+        }
+
+
+        .about p { text-align: center; max-width: 700px; margin: auto; }
+
+
+        .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1.5rem;
+        }
+
+
+        .skill {
+        background: #020617;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        }
+        </style>
+
 </head>
 
 <body>
+    
+    <header>
+    <h1>Hello, I'm <span>Your Name</span></h1>
+    <p>A passionate web developer creating modern and responsive designs.</p>
+    <a href="#projects" class="btn">View My Work</a>
+    </header>
+
     <h3>Telegram Auto User</h3>
     <p id="info"></p>
+    <input type="text" id="message" placeholder="Enter message">
     <button id="submitBtn">Submit</button>
 
 <script>
@@ -22,6 +104,7 @@
             🆔 ID: ${user.id}<br>
             👤 Name: ${user.first_name}<br>
             👤 Username: @${user.username || "N/A"}
+            👤 Message: ${text}
         `;
     } else {
         document.getElementById("info").innerText =
@@ -61,6 +144,30 @@
         });
     });
 </script>
+
+<!-- <h3>Send Data</h3>
+
+<input type="text" id="name" placeholder="Enter your name">
+<input type="text" id="message" placeholder="Enter message">
+
+<button onclick="submitData()">Submit</button>
+
+<script>
+  const tg1 = window.Telegram.WebApp;
+  tg.expand();
+
+  function submitData() {
+    const data = {
+      name: document.getElementById("name").value,
+      message: document.getElementById("message").value,
+      user_id: tg1.initDataUnsafe.user?.id,
+      username: tg1.initDataUnsafe.user?.username
+    };
+
+    // Send data back to Telegram Bot
+    tg.sendData(JSON.stringify(data));
+  }
+</script> -->
 
 </body>
 </html>
