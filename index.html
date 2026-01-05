@@ -64,12 +64,9 @@
     document.getElementById("submitBtn").addEventListener("click", () => {
 
       const select = document.getElementById("department");
-      const text = select.options[select.selectedIndex].text;
-      alert(text);
+      const text_Department = select.options[select.selectedIndex].text;
 
       const data = {
-        department_select: document.getElementById("department"),
-        department_text: department_select.options[department_select.selectedIndex].text,
         name: document.getElementById("name").value,
         mess: document.getElementById("message").value,
       }
@@ -88,7 +85,7 @@
     📛 Name: ${user.first_name}
     👤 Username: @${user.username || "N/A"}
 
-    => Department: ${data.department_text}
+    => Department: ${text_Department}
     => Name: ${data.name}
     => Message: ${data.mess}
         `;
