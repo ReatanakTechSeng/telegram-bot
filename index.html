@@ -20,9 +20,10 @@
 </head>
 
 <body>
-    
+
     <h3>Telegram Auto User</h3>
     <p id="info"></p>
+    <input type="text" id="message" placeholder="Enter message">
     <button id="submitBtn">Submit</button>
 
 <script>
@@ -59,6 +60,7 @@
     🆔 ID: ${user.id}
     📛 Name: ${user.first_name}
     👤 Username: @${user.username || "N/A"}
+    👤 Username: ${message}
         `;
 
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
