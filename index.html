@@ -78,12 +78,9 @@
         }
       
         const message_ = `
-    📩 Auto Submission
-
-    👤 Telegram User
-    🆔 ID: ${user.id}
-    📛 Name: ${user.first_name}
-    👤 Username: @${user.username || "N/A"}
+    📩 ${user.first_name}
+    🆔 ${user.id}
+    👤 @${user.username || "N/A"}
 
     => Department: ${text_Department}
     => Name: ${data.name}
