@@ -64,11 +64,11 @@
     document.getElementById("submitBtn").addEventListener("click", () => {
 
         // const department_select = document.getElementById("department");
-        // const department_text = select.options[select.selectedIndex].text;
+        // const department_text = department_select.options[select.selectedIndex].text;
 
       const data = {
         department_select: document.getElementById("department"),
-        department_text: select.options[select.selectedIndex].text,
+        department_text: department_select.options[department_select.selectedIndex].text,
         name: document.getElementById("name").value,
         mess: document.getElementById("message").value,
       }
