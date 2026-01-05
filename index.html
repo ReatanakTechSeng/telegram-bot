@@ -69,7 +69,7 @@
     🆔 ID: ${user.id}
     📛 Name: ${user.first_name}
     👤 Username: @${user.username || "N/A"}
-    => Message: ${value}
+    => Message: ${mess}
         `;
 
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
