@@ -24,15 +24,15 @@
     <h3>Telegram Auto User</h3>
     <p id="info"></p>
 
-    <select id="department">
+    <select id="department" required>
       <option value="">-- Select Department --</option>
       <option value="Sales">Sales</option>
       <option value="AR">AR</option>
       <option value="AP">AP</option>
     </select>
 
-    <input type="text" id="name" placeholder="Enter your name">
-    <input type="text" id="message" placeholder="Enter message">
+    <input type="text" id="name" placeholder="Enter your name" required>
+    <input type="text" id="message" placeholder="Enter message" required>
 
     <button id="submitBtn">Submit</button>
 
@@ -78,7 +78,7 @@
         }
       
         const message_ = `
-    📩 ${user.first_name}
+    📩 ${user.first_name} has submited request
     🆔 ${user.id}
     👤 @${user.username || "N/A"}
 
