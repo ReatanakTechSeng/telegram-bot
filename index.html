@@ -4,24 +4,128 @@
   <meta charset="UTF-8">
   <title>Telegram Mini App</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
   <style>
-    body {
-      font-family: Arial;
-      padding: 20px;
-    }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-    }
-  </style>
+      :root {
+        --tg-blue: #2aabee;
+        --bg: #f5f7fb;
+        --card: #ffffff;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --border: #e5e7eb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", Arial, sans-serif;
+        background: var(--bg);
+        padding: 20px;
+        color: var(--text);
+      }
+
+      .container {
+        max-width: 420px;
+        margin: auto;
+        background: var(--card);
+        padding: 24px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      h2 {
+        margin: 0 0 6px;
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0 0 20px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      label {
+        font-size: 13px;
+        font-weight: 500;
+        margin-top: 16px;
+        display: block;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 12px 14px;
+        margin-top: 8px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        font-size: 14px;
+        outline: none;
+        transition: 0.2s;
+        background: #fff;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: var(--tg-blue);
+        box-shadow: 0 0 0 3px rgba(42, 171, 238, 0.15);
+      }
+
+      button {
+        width: 100%;
+        margin-top: 24px;
+        padding: 14px;
+        border: none;
+        border-radius: 14px;
+        background: var(--tg-blue);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      button:hover {
+        background: #1e9bd7;
+      }
+
+      button:active {
+        transform: scale(0.98);
+      }
+    </style>
+
 </head>
 
 </head>
 
 <body>
+  
+  <div class="container">
+    <h2>Telegram Auto User</h2>
+    <p id="info"></p>
 
-    <h3>Telegram Auto User</h3>
+    <label>Department</label>
+    <select id="department" required>
+      <option>-- Select Department --</option>
+      <option value="Sales">Sales</option>
+      <option value="Sales">HR</option>
+      <option value="Sales">Finance</option>
+      <option value="AR">AR</option>
+      <option value="AP">AP</option>
+    </select>
+
+    <label>Name</label>
+    <input type="text" id="name" placeholder="Enter your name" required>
+
+    <label>Message</label>
+    <input type="text" id="message" placeholder="Enter message" required>
+
+    <button id="submitBtn">Submit</button>
+  </div>
+
+    <!-- <h3>Telegram Auto User</h3>
     <p id="info"></p>
 
     <select id="department" required>
@@ -34,10 +138,7 @@
     <input type="text" id="name" placeholder="Enter your name" required>
     <input type="text" id="message" placeholder="Enter message" required>
 
-    <button id="submitBtn">Submit</button>
-
-    <!-- <button onclick="submitData()">Submit</button> -->
-
+    <button id="submitBtn">Submit</button> -->
 
 <script>
     const tg = window.Telegram.WebApp;
@@ -101,31 +202,6 @@
         });
     });
 </script>
-
-<!-- <script>
-function submitData() {
-  const value = document.getElementById("name").value;
-
-    // const data = {
-    //   name: document.getElementById("name").value,
-    //   message: document.getElementById("message").value,
-    //   user_id: tg_.initDataUnsafe.user?.id,
-    //   username: tg_.initDataUnsafe.user?.username
-    // };
-
-    tg_.showAlert(value);
-  }
-</script> -->
-
-<!-- <input type="text" id="name" placeholder="Enter your name">
-<button onclick="showAlert()">Submit</button>
-
-<script>
-function showAlert() {
-  const value = document.getElementById("name").value;
-  alert(value);
-}
-</script> -->
 
 </body>
 
