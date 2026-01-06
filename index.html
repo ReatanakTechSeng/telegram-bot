@@ -35,6 +35,15 @@
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       }
 
+      .container_ {
+        max-width: 420px;
+        margin: auto;
+        background: var(--card);
+        padding: 0px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+
       h2 {
         margin: 0 0 6px;
         font-size: 22px;
@@ -121,6 +130,23 @@
         75% { transform: translateX(-5px); }
         100% { transform: translateX(0); }
       }
+
+      .link-btn {
+        width: 100%;
+        margin-top: 0px;
+        padding: 12px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--tg-blue);
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .link-btn:hover {
+        background: rgba(42, 171, 238, 0.08);
+      }
     </style>
 
 </head>
@@ -128,6 +154,12 @@
 </head>
 
 <body>
+  <div class="container_">
+    <!-- <h1>TECHSENG</h1> -->
+    <button class="link-btn" onclick="goPage()" style="margin: 0px; padding: 0px;">
+      <h1>Techseng</h1>
+    </button>
+  </div>
   
   <div class="container">
     <h2>Telegram Auto Support</h2>
@@ -150,6 +182,7 @@
     <textarea type="text" id="message" rows="5" placeholder="Enter message"></textarea>
 
     <button id="submitBtn">Submit</button>
+
   </div>
 
     <!-- <h3>Telegram Auto User</h3>
@@ -212,7 +245,7 @@
   👤 @${user.username || "N/A"}
 
     => Department: ${text_Department}
-    => Name: ${data.type}
+    => Type: ${data.type}
     => Message: ${data.mess}
         `;
 
@@ -229,6 +262,12 @@
             tg.close(); // optional: close WebApp
         });
     });
+</script>
+
+<script>
+  function goPage() {
+    window.location.href = "websit.html";
+  }
 </script>
 
 </body>
