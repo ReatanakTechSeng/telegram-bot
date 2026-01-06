@@ -55,7 +55,8 @@
       }
 
       input,
-      select {
+      select,
+      textarea {
         width: 100%;
         padding: 12px 14px;
         margin-top: 8px;
@@ -94,6 +95,32 @@
       button:active {
         transform: scale(0.98);
       }
+
+      button:disabled {
+        background: #cbd5e1;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      /* Update */
+      .error {
+        color: #ef4444;
+        font-size: 13px;
+        margin-top: 10px;
+        display: none;
+      }
+
+      .shake {
+        animation: shake 0.3s;
+      }
+
+      @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+      }
     </style>
 
 </head>
@@ -103,7 +130,7 @@
 <body>
   
   <div class="container">
-    <h2>Telegram Auto User</h2>
+    <h2>Telegram Auto Support</h2>
     <p id="info"></p>
 
     <label>Department</label>
@@ -116,11 +143,11 @@
       <option value="AP">AP</option>
     </select>
 
-    <label>Name</label>
-    <input type="text" id="name" placeholder="Enter your name" required>
+    <label>Issues Type</label>
+    <input type="text" id="type" placeholder="Enter type" required>
 
     <label>Message</label>
-    <input type="text" id="message" placeholder="Enter message" required>
+    <textarea type="text" id="message" rows="5" placeholder="Enter message"></textarea>
 
     <button id="submitBtn">Submit</button>
   </div>
@@ -141,6 +168,7 @@
     <button id="submitBtn">Submit</button> -->
 
 <script>
+
     const tg = window.Telegram.WebApp;
     // REQUIRED
     tg.ready();
@@ -168,7 +196,7 @@
       const text_Department = select.options[select.selectedIndex].text;
 
       const data = {
-        name: document.getElementById("name").value,
+        type: document.getElementById("type").value,
         mess: document.getElementById("message").value,
       }
 
@@ -179,12 +207,12 @@
         }
       
         const message_ = `
-    📩 ${user.first_name} has submited request
-    🆔 ${user.id}
-    👤 @${user.username || "N/A"}
+  📩 ${user.first_name} has submited request
+  🆔 ${user.id}
+  👤 @${user.username || "N/A"}
 
     => Department: ${text_Department}
-    => Name: ${data.name}
+    => Name: ${data.type}
     => Message: ${data.mess}
         `;
 
